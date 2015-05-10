@@ -1,24 +1,12 @@
-Full name:  KAUSHIK YASASWY SURYANARAYANA
-SEAS login: kaus
+Description:
 
-Which features did you implement? 
-  Entire Assignment
+The mapreduce framework consists of two types of nodes, a number of workers and a single master. The workers are in charge of running the map and reduce functions, and of storing the data that the MapReduce framework is working on; the master coordinates the workers and provides a user interface. Each worker will have a storage directory in which it keeps its local share of the data. The master will have a status page on which it displays the list of workers that are currently online, as well as some information about each (e.g., the worker's IP address, and what the worker is doing). To keep this list up to date, the workers will periodically send information about their status to the master. The status page will also have an input form that allows the administrator to specify a MapReduce job to run, as well as some parameters (such as a subdirectory of the storage directory to read data from, a subdirectory to write the output to, etc.). When the administrator submits this form, the master forwards this information to each of the workers, which then begin processing the data. I assume that the job classes are already in the classpath on each worker.
 
-Did you complete any extra-credit tasks? If so, which ones?
-  None
+Two jobs for WordCount and GrepJob are also included in the job folder. Each worker has spool-out and spool-in directories. Each of the workers first perform Map. They then write the files in the spool-out directory to each of the workers. SHA-1 hashing is used to determine which worker to send to. Once Map is done, the workers push the data to respective workers to perform reduce. Each of the workers then perform Reduce and store the final outputs in their respective directories.
 
-Any special instructions for building and running your solution?
-  None
+Instructions to run:
 
-Did you personally write _all_ the code you are submitting
-(other than code from the course web page)?
-  [*] Yes
-  [ ] No
-
-Did you copy any code from the Internet, or from classmates?
-  [ ] Yes
-  [*] No
-
-Did you collaborate with anyone on this assignment?
-  [ ] Yes
-  [*] No
+-> Setup four instances of Tomcat. Each one needs to have its own set of ports. This can be modified in the server.xml file.
+-> The master and each of the nodes will have their own war files which will be deployed on each instance of Tomcat.
+-> The modifications to be made for each of the workers is the port and the path to the storage directory in the web.xml before building the war.
+-> Start all the workers and the master. For the master, /status should display the status page. The form on this page can be used to specify the job to be run, the relative paths to the input and output directories and also the number of threads each worker should use. Once you submit, each of the workers will perform map and reduce. The /status page will display the status of each worker and also the number of keys that have been read and written by each worker.
